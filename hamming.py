@@ -3,13 +3,15 @@ class Hamming:
     def distance(self,gen1,gen2):
             if len(gen1)==0 and len(gen2)==0:
                 return 0
-
+            if gen1==gen2:
+                return 0
 hamming=Hamming()
 
 class HammingTest(unittest.TestCase):
+    @unittest.skip
     def test_empty_strands(self):
         self.assertEqual(hamming.distance("", ""), 0)
-    @unittest.skip
+
     def test_single_letter_identical_strands(self):
         self.assertEqual(hamming.distance("A", "A"), 0)
 
