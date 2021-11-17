@@ -1,48 +1,62 @@
 import unittest
 class Hamming:
     def distance(self,gen1,gen2):
-            if len(gen1)==0 and len(gen2)==0:
+        if len(gen1) == len(gen2):
+            if gen1 == gen2:
                 return 0
-            if gen1==gen2:
-                return 0
+            else:
+                counter = 0
+            for i in range(0,len(gen1)):
+                if gen1[i] != gen2[i]:
+                  counter = counter + 1
+            return counter
+        else:
+            raise ValueError("ValueError")
+
+
+
+
+
+
 hamming=Hamming()
 
 class HammingTest(unittest.TestCase):
-    @unittest.skip
+     #passed
     def test_empty_strands(self):
         self.assertEqual(hamming.distance("", ""), 0)
 
+     #passed
     def test_single_letter_identical_strands(self):
         self.assertEqual(hamming.distance("A", "A"), 0)
 
-    @unittest.skip
+
     def test_single_letter_different_strands(self):
         self.assertEqual(hamming.distance("G", "T"), 1)
 
-    @unittest.skip
+     #passed
     def test_long_identical_strands(self):
         self.assertEqual(hamming.distance("GGACTGAAATCTG", "GGACTGAAATCTG"), 0)
 
-    @unittest.skip
+
     def test_long_different_strands(self):
         self.assertEqual(hamming.distance("GGACGGATTCTG", "AGGACGGATTCT"), 9)
 
-    @unittest.skip
+
     def test_disallow_first_strand_longer(self):
         with self.assertRaisesWithMessage(ValueError):
             hamming.distance("AATG", "AAA")
 
-    @unittest.skip
+
     def test_disallow_second_strand_longer(self):
         with self.assertRaisesWithMessage(ValueError):
             hamming.distance("ATA", "AGTG")
 
-    @unittest.skip
+
     def test_disallow_left_empty_strand(self):
         with self.assertRaisesWithMessage(ValueError):
             hamming.distance("", "G")
 
-    @unittest.skip
+
     def test_disallow_right_empty_strand(self):
         with self.assertRaisesWithMessage(ValueError):
             hamming.distance("G", "")
